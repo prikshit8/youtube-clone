@@ -11,7 +11,11 @@ import {
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
-    getSearchSuggestions();
+    let id = setTimeout(() => getSearchSuggestions(), 200);
+
+    return () => {
+      clearTimeout(id);
+    };
   }, [searchQuery]);
   const getSearchSuggestions = async () => {
     const response = await fetch(

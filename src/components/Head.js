@@ -2,18 +2,25 @@ import { useDispatch } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { YOUTUBE_SEARCH_API } from "../utils/constants";
+import {
+  COUNTRY_META,
+  SEARCH_OPTIONS,
+  YOUTUBE_SEARCH_API,
+} from "../utils/constants";
 
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
-    // getSearchSuggestions();
+    getSearchSuggestions();
   }, [searchQuery]);
-  // const getSearchSuggestions = async () => {
-  //   const response = await fetch(YOUTUBE_SEARCH_API + searchQuery);
-  //   const data = await response.text();
-  //   console.log(data);
-  // };
+  const getSearchSuggestions = async () => {
+    const response = await fetch(
+      YOUTUBE_SEARCH_API + searchQuery + COUNTRY_META,
+      SEARCH_OPTIONS
+    );
+    const data = await response.json();
+    console.log(data);
+  };
   const dispatch = useDispatch();
   const toggleMenuHandeler = () => {
     dispatch(toggleMenu());

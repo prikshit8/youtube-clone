@@ -1,8 +1,19 @@
 import { useDispatch } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { YOUTUBE_SEARCH_API } from "../utils/constants";
 
 const Head = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  useEffect(() => {
+    // getSearchSuggestions();
+  }, [searchQuery]);
+  // const getSearchSuggestions = async () => {
+  //   const response = await fetch(YOUTUBE_SEARCH_API + searchQuery);
+  //   const data = await response.text();
+  //   console.log(data);
+  // };
   const dispatch = useDispatch();
   const toggleMenuHandeler = () => {
     dispatch(toggleMenu());
@@ -26,8 +37,10 @@ const Head = () => {
       </div>
       <div className="flex justify-center">
         <input
-          className="w-96 border border-gray-400 rounded-l-full"
+          className="w-96 border border-gray-400 rounded-l-full px-2"
           type="text"
+          onChange={(e) => setSearchQuery(e.target.value)}
+          value={searchQuery}
         />
         <button className="border border-gray-400 p-2 rounded-r-full bg-gray-300 px-5">
           🔍
